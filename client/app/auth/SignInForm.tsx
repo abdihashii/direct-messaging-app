@@ -14,6 +14,14 @@ const schema = yup
 
 const SignInForm = () => {
   const {} = useForm({});
+
+  return (
+    <form>
+      <input type="email" name="email" />
+      <input type="password" name="password" />
+      <button type="submit">Sign In</button>
+    </form>
+  );
 };
 
 export default SignInForm;

@@ -1,5 +1,5 @@
-import Chat from './components/Chat';
-import type { Database } from './types/database.types';
+import Chat from '@/app/components/Chat';
+import type { Database } from '@/app/types/database.types';
 import { cookies } from 'next/headers';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 
@@ -47,7 +47,7 @@ export default async function Home() {
     .select()
     .eq('chat_id', chat_id);
 
-  console.log(chat_users);
+  // console.log(chat_users);
 
   if (chatUsersError) console.error(chatUsersError);
 
