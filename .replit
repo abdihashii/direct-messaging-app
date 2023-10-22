@@ -1,4 +1,0 @@
-run = "cd client && npm run dev"
-
-[nix]
-channel = "stable-22_11"
