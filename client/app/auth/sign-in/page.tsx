@@ -1,20 +1,12 @@
 import SignInForm from '../SignInForm';
-import { getUser } from '@/lib/supabaseServerClient';
-import SignOut from '../SignOut';
+import { getSession } from '@/lib/supabaseServerClient';
+import { redirect } from 'next/navigation';
 
 export default async function SignInPage() {
-  const user = await getUser();
+  const session = await getSession();
 
-  if (user) {
-    return (
-      <main className="h-screen justify-center gap-8 flex flex-col items-center mx-auto w-10/12">
-        <h1 className="text-4xl font-semibold">Welcome Back!</h1>
-
-        <p>You are already signed in.</p>
-
-        <SignOut />
-      </main>
-    );
+  if (session) {
+    redirect('/chats');
   }
 
   return (
