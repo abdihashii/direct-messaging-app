@@ -12,7 +12,7 @@ export default async function ChatsLayout({
   const userName = await getUserName(user?.id);
 
   return (
-    <main className="flex flex-col h-[100vh]w-full gap-6">
+    <main className="flex flex-col h-[100vh] w-full gap-6">
       <section className="items-center w-full flex flex-row gap-2 py-8 px-8 border-b-2 border-b-gray-500">
         <div className="flex flex-row items-center gap-2">
           <Avatar>
