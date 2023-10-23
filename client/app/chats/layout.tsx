@@ -1,6 +1,7 @@
 import { getUser } from '@/lib/supabaseServerClient';
 import { getUserName } from '@/lib/utils';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import SignOut from '../auth/SignOut';
 
 export default async function ChatsLayout({
   children,
@@ -21,6 +22,8 @@ export default async function ChatsLayout({
         </div>
 
         <p className="ml-auto">Settings</p>
+
+        {user && <SignOut />}
       </section>
 
       {children}
