@@ -12,13 +12,15 @@ export default async function ChatsPage() {
 
   if (!session) {
     return (
-      <>
-        <p>You must be signed in to view this page.</p>
+      <section className="flex flex-col gap-4 px-8 items-center">
+        <p className="text-xl text-center">
+          You must be signed in to view this page.
+        </p>
 
         <Link href="/auth/sign-in">
           <Button className="bg-blue-500 hover:bg-blue-600">Sign In</Button>
         </Link>
-      </>
+      </section>
     );
   }
 
