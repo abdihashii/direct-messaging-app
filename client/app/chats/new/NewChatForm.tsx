@@ -37,8 +37,6 @@ const NewChatForm = () => {
       if (error) {
         throw error;
       }
-
-      console.log(data);
     } catch (error) {
       console.error(error);
     }
