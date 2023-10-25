@@ -44,7 +44,7 @@ export default async function ChatPage({
           {messages?.map((m) => {
             return (
               <li
-                className={`w-fit p-2 border rounded-md border-gray-500 flex flex-col gap-2 ${
+                className={`max-w-[50%] p-2 border rounded-md border-gray-500 flex flex-col gap-2 ${
                   user?.id === m.sender_id
                     ? 'items-end ml-auto'
                     : 'items-start justify-start'
