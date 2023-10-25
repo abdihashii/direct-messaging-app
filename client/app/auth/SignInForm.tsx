@@ -8,7 +8,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Database } from '@/types/database.types';
-import { useRouter } from 'next/navigation';
+import { Loader2 } from 'lucide-react';
+import { useState } from 'react';
 
 const schema = yup
   .object()
@@ -26,10 +27,12 @@ const SignInForm = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
   const supabase = createClientComponentClient<Database>();
 
   const onSubmit = async (data: { email: string; password: string }) => {
+    setIsLoading(true);
+
     const { email, password } = data;
 
     try {
@@ -39,11 +42,10 @@ const SignInForm = () => {
       });
 
       if (error) throw new Error(error.message);
-
-      alert(JSON.stringify(data, null, 2));
-      router.refresh();
     } catch (error: any) {
       alert(error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -66,7 +68,14 @@ const SignInForm = () => {
 
       <section>
         <Button type="submit" className="w-full">
-          Sign In
+          {isLoading ? (
+            <>
+              <Loader2 className="animate-spin inline-block mr-2" size={16} />
+              Signing in...
+            </>
+          ) : (
+            'Sign In'
+          )}
         </Button>
       </section>
     </form>
