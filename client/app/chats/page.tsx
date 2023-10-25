@@ -1,28 +1,10 @@
 // import Chat from '@/app/components/Chat';
 import { Button } from '@/components/ui/button';
-import {
-  createServerSupabaseClient,
-  getSession,
-} from '@/lib/supabaseServerClient';
+import { createServerSupabaseClient } from '@/lib/supabaseServerClient';
 import Link from 'next/link';
 
 export default async function ChatsPage() {
   const supabase = createServerSupabaseClient();
-  const session = await getSession();
-
-  if (!session) {
-    return (
-      <section className="flex flex-col gap-4 px-8 items-center">
-        <p className="text-xl text-center">
-          You must be signed in to view this page.
-        </p>
-
-        <Link href="/auth/sign-in">
-          <Button className="bg-blue-500 hover:bg-blue-600">Sign In</Button>
-        </Link>
-      </section>
-    );
-  }
 
   const { data: chats, error } = await supabase
     .from('chats')

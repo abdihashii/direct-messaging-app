@@ -2,6 +2,7 @@ import { getUser } from '@/lib/supabaseServerClient';
 import { getUserName } from '@/lib/utils';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import SignOut from '../auth/SignOut';
+import { redirect } from 'next/navigation';
 
 export default async function ChatsLayout({
   children,
@@ -9,6 +10,12 @@ export default async function ChatsLayout({
   children: React.ReactNode;
 }) {
   const user = await getUser();
+
+  // If there is no user, redirect to the sign in page
+  if (!user) {
+    redirect('/auth/sign-in');
+  }
+
   const userName = await getUserName(user?.id);
 
   return (

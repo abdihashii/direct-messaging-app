@@ -16,20 +16,6 @@ export default async function ChatPage({
   const supabase = createServerSupabaseClient();
   const user = await getUser();
 
-  if (!user) {
-    return (
-      <section className="flex flex-col gap-4 px-8 items-center">
-        <p className="text-xl text-center">
-          You must be signed in to view this page.
-        </p>
-
-        <Link href="/auth/sign-in">
-          <Button className="bg-blue-500 hover:bg-blue-600">Sign In</Button>
-        </Link>
-      </section>
-    );
-  }
-
   const { data: messages, error } = await supabase
     .from('messages')
     .select('*')
@@ -53,7 +39,7 @@ export default async function ChatPage({
             return (
               <div
                 className={`w-fit p-2 border rounded-md border-gray-500 flex flex-col gap-2 ${
-                  user.id === m.sender_id
+                  user?.id === m.sender_id
                     ? 'items-end ml-auto'
                     : 'items-start justify-start'
                 }`}
