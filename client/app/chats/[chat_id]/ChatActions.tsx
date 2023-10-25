@@ -70,6 +70,7 @@ const ChatActions = ({
           className="text-black px-4 py-3"
           type="text"
           placeholder="Message"
+          autoComplete="off"
           {...register('content')}
         />
         <button
