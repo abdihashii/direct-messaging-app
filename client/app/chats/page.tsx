@@ -1,4 +1,3 @@
-// import Chat from '@/app/components/Chat';
 import { Button } from '@/components/ui/button';
 import { createServerSupabaseClient } from '@/lib/supabaseServerClient';
 import Link from 'next/link';
