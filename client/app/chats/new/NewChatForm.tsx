@@ -28,7 +28,7 @@ const NewChatForm = () => {
 
   const handleCreateChatRoom = async (formData: { chatName: string }) => {
     try {
-      const { data, error } = await supabase.from('chats').insert([
+      const { error } = await supabase.from('chats').insert([
         {
           chat_name: formData.chatName,
         },
