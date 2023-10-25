@@ -20,7 +20,7 @@ const ChatActions = () => {
   const onSubmit = (data: { content: string }) => console.log(data);
 
   return (
-    <div className="mt-auto w-full py-6 px-4 border-t-2 border-t-gray-500">
+    <div className="mt-auto w-full py-6 px-5 border-t-2 border-t-gray-500">
       <form
         className="w-full flex flex-row gap-2 h-fit"
         onSubmit={handleSubmit(onSubmit)}

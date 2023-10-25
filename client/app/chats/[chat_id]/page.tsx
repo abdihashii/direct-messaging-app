@@ -1,9 +1,7 @@
-import { Button } from '@/components/ui/button';
 import {
   createServerSupabaseClient,
   getUser,
 } from '@/lib/supabaseServerClient';
-import Link from 'next/link';
 import ChatActions from './ChatActions';
 import { getUserName } from '@/lib/utils';
 
@@ -40,7 +38,7 @@ export default async function ChatPage({
 
   return (
     <section className="flex flex-col flex-grow">
-      <div className="flex flex-col gap-8 px-8 items-center">
+      <div className="flex flex-col gap-8 px-5 items-center">
         <h1 className="text-2xl font-semibold">{chat.chat_name}</h1>
 
         <ul className="w-full flex flex-col gap-4">
