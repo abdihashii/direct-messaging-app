@@ -19,21 +19,30 @@ export default async function ChatsLayout({
   const userName = await getUserName(user?.id);
 
   return (
-    <main className="flex flex-col h-[100vh] w-full gap-6">
-      <section className="items-center w-full flex flex-row gap-2 py-8 px-8 border-b-2 border-b-gray-500">
-        <div className="flex flex-row items-center gap-2">
-          <Avatar>
-            <AvatarFallback>TU</AvatarFallback>
-          </Avatar>
-          <p className="text-sm">{userName}</p>
-        </div>
+    <body>
+      <div
+        className="w-screen grid h-screen max-h-screen"
+        style={{
+          gridTemplateRows: 'auto 1fr',
+        }}
+      >
+        <header className="items-center flex flex-row gap-2 p-8 border-b-2 border-b-gray-500">
+          <div className="flex flex-row items-center gap-2">
+            <Avatar>
+              <AvatarFallback>TU</AvatarFallback>
+            </Avatar>
+            <p className="text-sm">{userName}</p>
+          </div>
 
-        <p className="ml-auto">Settings</p>
+          <p className="ml-auto">Settings</p>
 
-        {user && <SignOut />}
-      </section>
+          {user && <SignOut />}
+        </header>
 
-      {children}
-    </main>
+        <main className="flex flex-col flex-auto overflow-hidden">
+          {children}
+        </main>
+      </div>
+    </body>
   );
 }

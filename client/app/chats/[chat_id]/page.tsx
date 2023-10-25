@@ -37,8 +37,8 @@ export default async function ChatPage({
   }
 
   return (
-    <section className="flex flex-col flex-grow">
-      <div className="flex flex-col gap-8 px-5 items-center">
+    <section className="flex flex-col h-full">
+      <div className="flex flex-col gap-8 p-5 items-center overflow-y-scroll">
         <h1 className="text-2xl font-semibold">{chat.chat_name}</h1>
 
         <ul className="w-full flex flex-col gap-4">
