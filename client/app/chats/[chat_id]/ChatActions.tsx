@@ -22,7 +22,7 @@ const ChatActions = ({
   chatId: string;
   senderId: string;
 }) => {
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, reset } = useForm({
     resolver: yupResolver(schema),
   });
   const supabase = createClientComponentClient();
@@ -55,6 +55,7 @@ const ChatActions = ({
     } catch (error: any) {
       alert(error.message);
     } finally {
+      reset();
       setIsLoading(false);
     }
   };
