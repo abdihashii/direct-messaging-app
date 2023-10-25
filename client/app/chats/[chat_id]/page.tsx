@@ -3,6 +3,7 @@ import {
   getUser,
 } from '@/lib/supabaseServerClient';
 import ChatActions from './ChatActions';
+import Messages from './Messages';
 
 export default async function ChatPage({
   params,
@@ -41,20 +42,7 @@ export default async function ChatPage({
         <h1 className="text-2xl font-semibold">{chat.chat_name}</h1>
 
         <ul className="w-full flex flex-col gap-4">
-          {messages?.map((m) => {
-            return (
-              <li
-                className={`max-w-[50%] p-2 border rounded-md border-gray-500 flex flex-col gap-2 ${
-                  user?.id === m.sender_id
-                    ? 'items-end ml-auto'
-                    : 'items-start justify-start'
-                }`}
-                key={m.message_id}
-              >
-                <p>{m.content}</p>
-              </li>
-            );
-          })}
+          <Messages messages={messages} userId={user!.id} />
         </ul>
       </div>
 

@@ -20,7 +20,7 @@ export async function getUserName(userId: string | undefined | null) {
 
     if (error) throw error;
 
-    return data.user_name;
+    return data.user_name || '';
   } catch (error) {
     return '';
   }
