@@ -2,8 +2,7 @@ import {
   createServerSupabaseClient,
   getUser,
 } from '@/lib/supabaseServerClient';
-import ChatActions from './ChatActions';
-import Messages from './Messages';
+import ChatRoom from './ChatRoom';
 
 export default async function ChatPage({
   params,
@@ -18,7 +17,8 @@ export default async function ChatPage({
   const { data: messages, error: messagesError } = await supabase
     .from('messages')
     .select('*')
-    .eq('chat_id', params.chat_id);
+    .eq('chat_id', params.chat_id)
+    .order('timestamp', { ascending: true });
 
   const { data: chat, error: chatError } = await supabase
     .from('chats')
@@ -37,14 +37,11 @@ export default async function ChatPage({
   }
 
   return (
-    <section className="flex h-full flex-col">
-      <Messages
-        messages={messages}
-        userId={user!.id}
-        chatName={chat.chat_name as string}
-      />
-
-      <ChatActions chatId={params.chat_id} senderId={user!.id} />
-    </section>
+    <ChatRoom
+      messages={messages}
+      userId={user!.id}
+      chatId={params.chat_id}
+      chatName={chat.chat_name as string}
+    />
   );
 }

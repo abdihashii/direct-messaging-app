@@ -1,20 +1,18 @@
 'use client';
 
-import { getUserName } from '@/lib/utils';
 import { Message } from '@/types';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 
 const Messages = ({
-  messages,
+  messagesState,
   userId,
   chatName,
 }: {
-  messages: Message[];
+  messagesState: Partial<Message>[];
   userId: string;
   chatName: string;
 }) => {
   const chatContainerRef = useRef<HTMLDivElement>(null);
-  const [messagesState, setMessagesState] = useState<Message[]>(messages);
 
   useEffect(() => {
     if (chatContainerRef.current) {
@@ -31,8 +29,7 @@ const Messages = ({
       <h1 className="text-2xl font-semibold">{chatName}</h1>
 
       <ul className="flex w-full flex-col gap-4">
-        {messagesState?.map(async (m) => {
-          const userName = await getUserName(m.sender_id);
+        {messagesState?.map((m) => {
           const iAmTheSender = userId === m.sender_id;
 
           return (
@@ -47,7 +44,7 @@ const Messages = ({
                   iAmTheSender ? 'text-green-700' : 'text-blue-700'
                 }`}
               >
-                {userName}
+                {m.sender_user_name}
               </p>
               <p>{m.content}</p>
             </li>
