@@ -4,5 +4,6 @@ export type Message = {
   is_read: boolean;
   message_id: string;
   sender_id: string;
+  sender_user_name: string | null;
   timestamp: string;
 };

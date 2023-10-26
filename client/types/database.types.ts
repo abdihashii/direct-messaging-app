@@ -68,6 +68,7 @@ export interface Database {
           is_read: boolean
           message_id: string
           sender_id: string
+          sender_user_name: string | null
           timestamp: string
         }
         Insert: {
@@ -76,6 +77,7 @@ export interface Database {
           is_read?: boolean
           message_id?: string
           sender_id: string
+          sender_user_name?: string | null
           timestamp?: string
         }
         Update: {
@@ -84,6 +86,7 @@ export interface Database {
           is_read?: boolean
           message_id?: string
           sender_id?: string
+          sender_user_name?: string | null
           timestamp?: string
         }
         Relationships: [
@@ -98,6 +101,12 @@ export interface Database {
             columns: ["sender_id"]
             referencedRelation: "users"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "messages_sender_user_name_fkey"
+            columns: ["sender_user_name"]
+            referencedRelation: "profiles"
+            referencedColumns: ["user_name"]
           }
         ]
       }
@@ -108,7 +117,7 @@ export interface Database {
           email: string
           updated_at: string | null
           user_id: string
-          user_name: string
+          user_name: string | null
         }
         Insert: {
           avatar_url?: string | null
@@ -116,7 +125,7 @@ export interface Database {
           email: string
           updated_at?: string | null
           user_id: string
-          user_name: string
+          user_name?: string | null
         }
         Update: {
           avatar_url?: string | null
@@ -124,7 +133,7 @@ export interface Database {
           email?: string
           updated_at?: string | null
           user_id?: string
-          user_name?: string
+          user_name?: string | null
         }
         Relationships: [
           {
