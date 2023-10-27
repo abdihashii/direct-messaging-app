@@ -11,7 +11,7 @@ export default async function ChatsPage() {
     .order('created_at', { ascending: false });
 
   return (
-    <>
+    <div className="py-5 flex flex-col h-full">
       <section className="px-8 w-full flex flex-col gap-4 overflow-y-scroll max-h-[70vh]">
         <h1 className="text-4xl font-semibold">Chats</h1>
 
@@ -21,9 +21,11 @@ export default async function ChatsPage() {
           {chats?.map((chat) => (
             <li
               key={chat.chat_id}
-              className="flex flex-row gap-2 border border-black rounded-md p-4"
+              className="w-full border border-black rounded-md p-4"
             >
-              <Link href={`/chats/${chat.chat_id}`}>{chat.chat_name}</Link>
+              <Link href={`/chats/${chat.chat_id}`} className="block">
+                {chat.chat_name}
+              </Link>
             </li>
           ))}
         </ul>
@@ -36,6 +38,6 @@ export default async function ChatsPage() {
           </Button>
         </Link>
       </section>
-    </>
+    </div>
   );
 }
