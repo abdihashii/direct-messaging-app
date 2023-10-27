@@ -2,7 +2,8 @@ import {
   createServerSupabaseClient,
   getUser,
 } from '@/lib/supabaseServerClient';
-import ChatRoom from './ChatRoom';
+import Messages from './Messages';
+import ChatActions from './ChatActions';
 
 export default async function ChatPage({
   params,
@@ -37,11 +38,14 @@ export default async function ChatPage({
   }
 
   return (
-    <ChatRoom
-      messages={messages}
-      userId={user!.id}
-      chatId={params.chat_id}
-      chatName={chat.chat_name as string}
-    />
+    <section className="flex h-full flex-col">
+      <Messages
+        messages={messages}
+        userId={user!.id} // at this point, user should be defined
+        chatName={chat.chat_name!} // at this point, chat name should be defined
+      />
+
+      <ChatActions chatId={params.chat_id} senderId={user!.id} />
+    </section>
   );
 }
