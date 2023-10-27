@@ -16,21 +16,17 @@ const ChatRoom = ({
   chatId: string;
   chatName: string;
 }) => {
-  const [messagesState, setMessagesState] =
-    useState<Partial<Message>[]>(messages);
+  // const [messagesState, setMessagesState] =
+  //   useState<Partial<Message>[]>(messages);
 
   return (
     <section className="flex h-full flex-col">
-      <Messages
-        messagesState={messagesState}
-        userId={userId}
-        chatName={chatName}
-      />
+      <Messages messages={messages} userId={userId} chatName={chatName} />
 
       <ChatActions
         chatId={chatId}
         senderId={userId}
-        setMessagesState={setMessagesState}
+        // setMessagesState={setMessagesState}
       />
     </section>
   );

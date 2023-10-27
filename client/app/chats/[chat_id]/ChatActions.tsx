@@ -10,11 +10,11 @@ import { Message } from '@/types';
 const ChatActions = ({
   chatId,
   senderId,
-  setMessagesState,
-}: {
+}: // setMessagesState,
+{
   chatId: string;
   senderId: string;
-  setMessagesState: React.Dispatch<React.SetStateAction<Partial<Message>[]>>;
+  // setMessagesState: React.Dispatch<React.SetStateAction<Partial<Message>[]>>;
 }) => {
   const supabase = createClientComponentClient();
   const [content, setContent] = useState('');
@@ -25,14 +25,14 @@ const ChatActions = ({
 
     setIsLoading(true);
 
-    setMessagesState((prev) => [
-      ...prev,
-      {
-        chat_id: chatId,
-        sender_id: senderId,
-        content,
-      },
-    ]);
+    // setMessagesState((prev) => [
+    //   ...prev,
+    //   {
+    //     chat_id: chatId,
+    //     sender_id: senderId,
+    //     content,
+    //   },
+    // ]);
 
     try {
       const { data: messages, error } = await supabase
@@ -48,7 +48,7 @@ const ChatActions = ({
 
       if (error) throw new Error(error.message);
 
-      alert(JSON.stringify(messages, null, 2));
+      // alert(JSON.stringify(messages, null, 2));
     } catch (error: any) {
       alert(error.message);
     } finally {

@@ -1,35 +1,56 @@
 'use client';
 
 import { Message } from '@/types';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { useRouter } from 'next/navigation';
 import { useRef, useEffect } from 'react';
 
 const Messages = ({
-  messagesState,
+  messages,
   userId,
   chatName,
 }: {
-  messagesState: Partial<Message>[];
+  messages: Message[];
   userId: string;
   chatName: string;
 }) => {
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  const supabase = createClientComponentClient();
+  const router = useRouter();
 
   useEffect(() => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop =
         chatContainerRef.current.scrollHeight;
     }
-  }, [messagesState]);
+
+    // Listen to inserts
+    const channel = supabase
+      .channel('messages')
+      .on(
+        'postgres_changes',
+        { event: 'INSERT', schema: 'public', table: 'messages' },
+        () => {
+          // alert('New message!');
+          router.refresh();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      channel.unsubscribe();
+    };
+  }, [messages, supabase, router]);
 
   return (
     <div
       ref={chatContainerRef}
-      className="flex flex-col items-center gap-8 overflow-y-scroll scroll-smooth p-5"
+      className="flex flex-col items-center gap-8 overflow-y-scroll p-5"
     >
       <h1 className="text-2xl font-semibold">{chatName}</h1>
 
       <ul className="flex w-full flex-col gap-4">
-        {messagesState?.map((m) => {
+        {messages?.map((m) => {
           const iAmTheSender = userId === m.sender_id;
 
           return (
