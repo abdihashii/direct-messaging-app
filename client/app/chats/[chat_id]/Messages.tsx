@@ -8,11 +8,9 @@ import { useRef, useEffect } from 'react';
 const Messages = ({
   messages,
   userId,
-  chatName,
 }: {
   messages: Message[];
   userId: string;
-  chatName: string;
 }) => {
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const supabase = createClientComponentClient();
@@ -47,8 +45,6 @@ const Messages = ({
       ref={chatContainerRef}
       className="flex flex-col items-center gap-8 overflow-y-scroll p-5"
     >
-      <h1 className="text-2xl font-semibold">{chatName}</h1>
-
       <ul className="flex w-full flex-col gap-4">
         {messages?.map((m) => {
           const iAmTheSender = userId === m.sender_id;

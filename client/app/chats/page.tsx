@@ -11,10 +11,8 @@ export default async function ChatsPage() {
     .order('created_at', { ascending: false });
 
   return (
-    <div className="py-5 flex flex-col h-full">
+    <div className="py-10 flex flex-col h-full">
       <section className="px-8 w-full flex flex-col gap-4 overflow-y-scroll max-h-[70vh]">
-        <h1 className="text-4xl font-semibold">Chats</h1>
-
         {error && <p className="text-red-500">{error.message}</p>}
 
         <ul className="flex flex-col gap-4">
