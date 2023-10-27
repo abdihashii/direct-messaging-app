@@ -14,17 +14,17 @@ export default async function ChatPage({
   const supabase = createServerSupabaseClient();
   const user = await getUser();
 
-  const { data: messages, error: messagesError } = await supabase
-    .from('messages')
-    .select('*')
-    .eq('chat_id', params.chat_id)
-    .order('timestamp', { ascending: true });
-
   const { data: chat, error: chatError } = await supabase
     .from('chats')
     .select('chat_name')
     .eq('chat_id', params.chat_id)
     .single();
+
+  const { data: messages, error: messagesError } = await supabase
+    .from('messages')
+    .select('*')
+    .eq('chat_id', params.chat_id)
+    .order('timestamp', { ascending: true });
 
   if (messagesError || chatError) {
     const error = messagesError || chatError;
