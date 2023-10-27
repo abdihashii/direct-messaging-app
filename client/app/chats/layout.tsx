@@ -1,8 +1,9 @@
 import { getUser } from '@/lib/supabaseServerClient';
-import { getUserName } from '@/lib/utils';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import SignOut from '../auth/SignOut';
 import { redirect } from 'next/navigation';
+import { ChevronLeft } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export default async function ChatsLayout({
   children,
@@ -16,8 +17,6 @@ export default async function ChatsLayout({
     redirect('/auth/sign-in');
   }
 
-  const userName = await getUserName(user?.id);
-
   return (
     <div
       className="grid h-screen max-h-screen w-screen"
@@ -25,15 +24,16 @@ export default async function ChatsLayout({
         gridTemplateRows: 'auto 1fr',
       }}
     >
-      <header className="flex flex-row items-center gap-2 border-b-2 border-b-gray-500 p-8">
-        <div className="flex flex-row items-center gap-2">
-          <Avatar>
-            <AvatarFallback>TU</AvatarFallback>
-          </Avatar>
-          <p className="text-sm">{userName}</p>
-        </div>
+      <header className="h-24 flex flex-row justify-between items-center gap-2 border-b-2 border-b-gray-500 p-8">
+        <Link href="/chats">
+          <Button size={'icon'}>
+            <ChevronLeft />
+          </Button>
+        </Link>
 
-        <p className="ml-auto">Settings</p>
+        <h1 className="text-2xl">Chats</h1>
+
+        {/* <p className="ml-auto">Settings</p> */}
 
         {user && <SignOut />}
       </header>

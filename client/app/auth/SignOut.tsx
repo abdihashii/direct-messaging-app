@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { Database } from '@/types/database.types';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { Loader2 } from 'lucide-react';
+import { Loader2, LogOut } from 'lucide-react';
 import { useState } from 'react';
 
 const SignOut = () => {
@@ -25,11 +25,16 @@ const SignOut = () => {
   };
 
   return (
-    <Button className="bg-slate-500 hover:bg-slate-600" onClick={handleSignOut}>
+    <Button
+      size="icon"
+      variant={'link'}
+      disabled={isLoading}
+      onClick={handleSignOut}
+    >
       {isLoading ? (
-        <Loader2 className="animate-spin inline-block" size={16} />
+        <Loader2 className="animate-spin inline-block" />
       ) : (
-        'Sign Out'
+        <LogOut />
       )}
     </Button>
   );
