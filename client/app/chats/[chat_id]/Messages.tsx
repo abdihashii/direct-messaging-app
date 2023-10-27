@@ -19,6 +19,7 @@ const Messages = ({
   const router = useRouter();
 
   useEffect(() => {
+    // Scroll to bottom
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop =
         chatContainerRef.current.scrollHeight;
@@ -31,9 +32,8 @@ const Messages = ({
         'postgres_changes',
         { event: 'INSERT', schema: 'public', table: 'messages' },
         () => {
-          // alert('New message!');
           router.refresh();
-        }
+        },
       )
       .subscribe();
 
