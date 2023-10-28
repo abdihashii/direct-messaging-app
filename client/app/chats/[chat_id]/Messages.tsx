@@ -3,10 +3,10 @@
 import { Message } from '@/types';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useRouter } from 'next/navigation';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
 const Messages = ({
-  messages,
+  messages: serverMessages,
   userId,
 }: {
   messages: Message[];
@@ -15,6 +15,11 @@ const Messages = ({
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const supabase = createClientComponentClient();
   const router = useRouter();
+  const [messages, setMessages] = useState<Message[]>(serverMessages);
+
+  useEffect(() => {
+    setMessages(serverMessages);
+  }, [serverMessages]);
 
   useEffect(() => {
     // Scroll to bottom
@@ -29,14 +34,14 @@ const Messages = ({
       .on(
         'postgres_changes',
         { event: 'INSERT', schema: 'public', table: 'messages' },
-        () => {
-          router.refresh();
+        (payload) => {
+          setMessages([...messages, payload.new as Message]);
         },
       )
       .subscribe();
 
     return () => {
-      channel.unsubscribe();
+      supabase.removeChannel(channel);
     };
   }, [messages, supabase, router]);
 
