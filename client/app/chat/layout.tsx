@@ -5,7 +5,7 @@ import { ChevronLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
-export default async function ChatsLayout({
+export default async function ChatLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -25,7 +25,13 @@ export default async function ChatsLayout({
       }}
     >
       <header className="h-24 flex flex-row justify-between items-center gap-2 border-b-2 border-b-gray-500 p-8">
-        <h1 className="text-2xl">Chats</h1>
+        <Link href="/chats">
+          <Button size={'icon'}>
+            <ChevronLeft />
+          </Button>
+        </Link>
+
+        {/* <h1 className="text-2xl">Chats</h1> */}
 
         {/* <p className="ml-auto">Settings</p> */}
 

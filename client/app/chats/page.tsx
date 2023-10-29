@@ -21,7 +21,7 @@ export default async function ChatsPage() {
               key={chat.chat_id}
               className="w-full border border-black rounded-md p-4"
             >
-              <Link href={`/chats/${chat.chat_id}`} className="block">
+              <Link href={`/chat/${chat.chat_id}`} className="block">
                 {chat.chat_name}
               </Link>
             </li>
