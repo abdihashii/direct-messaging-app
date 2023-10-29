@@ -61,13 +61,30 @@ export interface Database {
         }
         Relationships: []
       }
+      colors: {
+        Row: {
+          color: string
+          created_at: string
+          id: string
+        }
+        Insert: {
+          color: string
+          created_at?: string
+          id?: string
+        }
+        Update: {
+          color?: string
+          created_at?: string
+          id?: string
+        }
+        Relationships: []
+      }
       messages: {
         Row: {
           chat_id: string | null
           content: string
           is_read: boolean
           message_id: string
-          sender_color: string | null
           sender_id: string
           sender_user_name: string | null
           timestamp: string
@@ -77,7 +94,6 @@ export interface Database {
           content: string
           is_read?: boolean
           message_id?: string
-          sender_color?: string | null
           sender_id: string
           sender_user_name?: string | null
           timestamp?: string
@@ -87,7 +103,6 @@ export interface Database {
           content?: string
           is_read?: boolean
           message_id?: string
-          sender_color?: string | null
           sender_id?: string
           sender_user_name?: string | null
           timestamp?: string
@@ -119,6 +134,7 @@ export interface Database {
           created_at: string
           email: string
           updated_at: string | null
+          user_color: string | null
           user_id: string
           user_name: string | null
         }
@@ -127,6 +143,7 @@ export interface Database {
           created_at?: string
           email: string
           updated_at?: string | null
+          user_color?: string | null
           user_id: string
           user_name?: string | null
         }
@@ -135,10 +152,17 @@ export interface Database {
           created_at?: string
           email?: string
           updated_at?: string | null
+          user_color?: string | null
           user_id?: string
           user_name?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "profiles_user_color_fkey"
+            columns: ["user_color"]
+            referencedRelation: "colors"
+            referencedColumns: ["color"]
+          },
           {
             foreignKeyName: "profiles_user_id_fkey"
             columns: ["user_id"]

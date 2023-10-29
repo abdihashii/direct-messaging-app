@@ -1,21 +1,22 @@
 'use client';
 
-import { Message } from '@/types';
+import { Message as MessageType } from '@/types';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useRouter } from 'next/navigation';
 import { useRef, useEffect, useState } from 'react';
+import Message from './Message';
 
 const Messages = ({
   messages: serverMessages,
   userId,
 }: {
-  messages: Message[];
+  messages: MessageType[];
   userId: string;
 }) => {
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const supabase = createClientComponentClient();
   const router = useRouter();
-  const [messages, setMessages] = useState<Message[]>(serverMessages);
+  const [messages, setMessages] = useState<MessageType[]>(serverMessages);
 
   useEffect(() => {
     setMessages(serverMessages);
@@ -35,7 +36,7 @@ const Messages = ({
         'postgres_changes',
         { event: 'INSERT', schema: 'public', table: 'messages' },
         (payload) => {
-          setMessages([...messages, payload.new as Message]);
+          setMessages([...messages, payload.new as MessageType]);
         },
       )
       .subscribe();
@@ -52,25 +53,7 @@ const Messages = ({
     >
       <ul className="flex w-full flex-col gap-4">
         {messages?.map((m) => {
-          const iAmTheSender = userId === m.sender_id;
-          // const senderColor = `bg-${m.sender_color}`;
-          const bgColor = iAmTheSender ? 'bg-green-700' : 'bg-blue-700';
-
-          return (
-            <li
-              className={`flex max-w-[50%] flex-col gap-2 rounded-md border border-gray-500 p-2 ${
-                iAmTheSender ? 'ml-auto items-end' : 'items-start'
-              }`}
-              key={m.message_id}
-            >
-              <p
-                className={`${bgColor} rounded-md px-2 py-1 text-sm text-white`}
-              >
-                {m.sender_user_name}
-              </p>
-              <p>{m.content}</p>
-            </li>
-          );
+          return <Message key={m.message_id} message={m} userId={userId} />;
         })}
       </ul>
     </div>
