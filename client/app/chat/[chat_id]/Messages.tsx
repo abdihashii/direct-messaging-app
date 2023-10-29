@@ -53,18 +53,18 @@ const Messages = ({
       <ul className="flex w-full flex-col gap-4">
         {messages?.map((m) => {
           const iAmTheSender = userId === m.sender_id;
+          // const senderColor = `bg-${m.sender_color}`;
+          const bgColor = iAmTheSender ? 'bg-green-700' : 'bg-blue-700';
 
           return (
             <li
               className={`flex max-w-[50%] flex-col gap-2 rounded-md border border-gray-500 p-2 ${
-                iAmTheSender ? 'ml-auto items-end' : 'items-start justify-start'
+                iAmTheSender ? 'ml-auto items-end' : 'items-start'
               }`}
               key={m.message_id}
             >
               <p
-                className={`text-sm ${
-                  iAmTheSender ? 'text-green-700' : 'text-blue-700'
-                }`}
+                className={`${bgColor} rounded-md px-2 py-1 text-sm text-white`}
               >
                 {m.sender_user_name}
               </p>
