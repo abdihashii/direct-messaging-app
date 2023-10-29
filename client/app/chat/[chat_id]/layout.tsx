@@ -58,7 +58,7 @@ export default async function ChatLayout({
           </Button>
         </Link>
 
-        <h1 className="text-center text-xl">{chatName}</h1>
+        <h1 className="text-center text-lg leading-6">{chatName}</h1>
 
         {user && <SignOut />}
       </header>
