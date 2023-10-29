@@ -1,13 +1,18 @@
 import { getUser } from '@/lib/supabaseServerClient';
-import SignOut from '../auth/SignOut';
+import SignOut from '../../auth/SignOut';
 import { redirect } from 'next/navigation';
 import { ChevronLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { getChatName } from '@/lib/utils';
 
 export default async function ChatLayout({
+  params,
   children,
 }: {
+  params: {
+    chat_id: string;
+  };
   children: React.ReactNode;
 }) {
   const user = await getUser();
@@ -16,6 +21,11 @@ export default async function ChatLayout({
   if (!user) {
     redirect('/auth/sign-in');
   }
+
+  // Gets the chat name
+  const chatName = await getChatName(params.chat_id);
+
+  console.log(chatName);
 
   return (
     <div
@@ -31,7 +41,7 @@ export default async function ChatLayout({
           </Button>
         </Link>
 
-        {/* <h1 className="text-2xl">Chats</h1> */}
+        <h1 className="text-xl text-center">{'group chat name goes here'}</h1>
 
         {/* <p className="ml-auto">Settings</p> */}
 

@@ -25,3 +25,23 @@ export async function getUserName(userId: string | undefined | null) {
     return '';
   }
 }
+
+export async function getChatName(chat_id: string | undefined | null) {
+  if (!chat_id) return '';
+
+  const supabase = createClientComponentClient();
+
+  try {
+    const { data, error } = await supabase
+      .from('chats')
+      .select('chat_name')
+      .eq('id', chat_id)
+      .single();
+
+    if (error) throw error;
+
+    return data.chat_name || '';
+  } catch (error) {
+    return '';
+  }
+}
