@@ -1,5 +1,4 @@
 import { Message as MessageType } from '@/types';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
 const Message = ({
   message,
