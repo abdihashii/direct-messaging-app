@@ -53,11 +53,16 @@ const NewChatForm = () => {
     >
       <section className="flex flex-col gap-2">
         <Label htmlFor="chat-name">Chat Name</Label>
-        <Input type="text" id="chat-name" {...register('chatName')} />
+        <Input
+          type="text"
+          id="chat-name"
+          autoComplete="off"
+          {...register('chatName')}
+        />
         <p className="text-red-500">{errors.chatName?.message}</p>
       </section>
 
-      <Button className="w-full" type="submit">
+      <Button className="w-full bg-blue-500" type="submit">
         Create Chat
       </Button>
 

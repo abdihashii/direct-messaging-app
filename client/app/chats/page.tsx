@@ -31,9 +31,7 @@ export default async function ChatsPage() {
 
       <section className="mt-auto flex flex-col w-full gap-4 px-8">
         <Link href="/chats/new">
-          <Button className="w-full bg-blue-500 hover:bg-blue-600">
-            New Chat
-          </Button>
+          <Button className="w-full bg-blue-500">New Chat</Button>
         </Link>
       </section>
     </div>
