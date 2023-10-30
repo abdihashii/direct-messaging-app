@@ -1,4 +1,4 @@
-import SignInForm from '../SignInForm';
+import SignInForm from './SignInForm';
 import { getSession } from '@/lib/supabaseServerClient';
 import { redirect } from 'next/navigation';
 
