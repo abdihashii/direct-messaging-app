@@ -2,9 +2,8 @@ import {
   createServerSupabaseClient,
   getUser,
 } from '@/lib/supabaseServerClient';
-import { Settings } from 'lucide-react';
-import Link from 'next/link';
 import NewChatButton from './NewChatButton';
+import Chat from './Chat';
 
 export default async function ChatsPage() {
   const supabase = createServerSupabaseClient();
@@ -21,20 +20,7 @@ export default async function ChatsPage() {
         {error && <p className="text-red-500">{error.message}</p>}
 
         <ul className="flex flex-col gap-4">
-          {chats?.map((chat) => (
-            <li
-              key={chat.chat_id}
-              className="flex flex-row justify-between w-full border border-black rounded-md p-4"
-            >
-              <Link
-                href={`/chat/${chat.chat_id}`}
-                className="line-clamp-1 w-10/12"
-              >
-                {chat.chat_name}
-              </Link>
-              <Settings />
-            </li>
-          ))}
+          {chats?.map((chat) => <Chat chat={chat} />)}
         </ul>
       </section>
 
