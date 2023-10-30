@@ -6,6 +6,7 @@ import { Settings } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
 import ChatSettings from './ChatSettings';
+import { useRouter } from 'next/navigation';
 
 const Chat = ({
   chat,
@@ -18,6 +19,7 @@ const Chat = ({
   };
 }) => {
   const [showModal, setShowModal] = useState(false);
+  const router = useRouter();
 
   const handleShowModal = () => {
     setShowModal(true);
@@ -25,6 +27,7 @@ const Chat = ({
 
   const handleClose = () => {
     setShowModal(false);
+    router.refresh();
   };
 
   return (
