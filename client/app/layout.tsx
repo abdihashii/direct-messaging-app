@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import AuthProvider from '@/components/AuthProvider';
 import { getSession } from '@/lib/supabaseServerClient';
+import { Toaster } from '@/components/ui/toaster';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -24,6 +25,7 @@ export default async function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AuthProvider accessToken={accessToken}>{children}</AuthProvider>
+        <Toaster />
       </body>
     </html>
   );

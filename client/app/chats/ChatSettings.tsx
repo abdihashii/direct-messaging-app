@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Ban, Loader2, Pencil, Save } from 'lucide-react';
 import { useState } from 'react';
-// import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/components/ui/use-toast';
 
 const ChatSettings = ({
   chat,
@@ -21,7 +21,7 @@ const ChatSettings = ({
   const [editChatName, setEditChatName] = useState(false);
   const [isChatNameLoading, setIsChatNameLoading] = useState(false);
   const [chatName, setChatName] = useState(chat.chat_name as string);
-  // const { toast } = useToast();
+  const { toast } = useToast();
   const supabase = createClientComponentClient();
 
   const handleChatNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,6 +44,11 @@ const ChatSettings = ({
     } finally {
       setIsChatNameLoading(false);
       setEditChatName(false);
+
+      toast({
+        description: 'Your chat name has been successfully updated! 🎉',
+        duration: 1500,
+      });
     }
   };
 
