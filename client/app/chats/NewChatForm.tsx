@@ -82,12 +82,6 @@ const NewChatForm = ({ userId }: { userId: string }) => {
       <Button className="w-full bg-blue-500" type="submit">
         {isLoading ? <Loader2 className="animate-spin" /> : 'Create chat'}
       </Button>
-
-      <Link href="/chats" className="w-full">
-        <Button type="button" variant={'outline'} className="w-full">
-          Back to Chats
-        </Button>
-      </Link>
     </form>
   );
 };
