@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Ban, Loader2, Pencil, Save } from 'lucide-react';
 import { useState } from 'react';
+// import { useToast } from '@/components/ui/use-toast';
 
 const ChatSettings = ({
   chat,
@@ -20,6 +21,7 @@ const ChatSettings = ({
   const [editChatName, setEditChatName] = useState(false);
   const [isChatNameLoading, setIsChatNameLoading] = useState(false);
   const [chatName, setChatName] = useState(chat.chat_name as string);
+  // const { toast } = useToast();
   const supabase = createClientComponentClient();
 
   const handleChatNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,38 +50,45 @@ const ChatSettings = ({
   return (
     <>
       <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
-        <section className="flex flex-col gap-2">
-          <Label htmlFor="chat-name">Chat Name</Label>
+        <Label htmlFor="chat-name">Chat Name</Label>
+        <section className="flex flex-row gap-2 items-center">
           <Input
             id="chat-name"
             disabled={!editChatName}
             value={chatName}
             onChange={handleChatNameChange}
+            autoComplete="off"
           />
-        </section>
-
-        <section>
-          {!editChatName ? (
+          {!editChatName && (
             <Pencil
               type="button"
               onClick={() => setEditChatName(!editChatName)}
             />
-          ) : isChatNameLoading ? (
-            <Loader2 className="animate-spin" />
-          ) : (
-            <>
-              <Button variant={'outline'} className="">
-                <Save type="submit" className="" />
-              </Button>
-              <Button variant={'outline'} className="">
-                <Ban
-                  type="button"
-                  onClick={() => setEditChatName(!editChatName)}
-                />
-              </Button>
-            </>
           )}
         </section>
+
+        {editChatName && (
+          <section className="flex flex-row gap-4">
+            <Button
+              variant={'outline'}
+              className="w-1/2 bg-green-800 text-white"
+              type="submit"
+              disabled={isChatNameLoading}
+            >
+              {isChatNameLoading ? (
+                <Loader2 className="animate-spin" />
+              ) : (
+                <Save type="submit" />
+              )}
+            </Button>
+            <Button variant={'outline'} className="w-1/2 bg-red-800 text-white">
+              <Ban
+                type="button"
+                onClick={() => setEditChatName(!editChatName)}
+              />
+            </Button>
+          </section>
+        )}
       </form>
     </>
   );
