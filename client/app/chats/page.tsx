@@ -20,7 +20,7 @@ export default async function ChatsPage() {
         {error && <p className="text-red-500">{error.message}</p>}
 
         <ul className="flex flex-col gap-4">
-          {chats?.map((chat) => <Chat chat={chat} />)}
+          {chats?.map((chat) => <Chat key={chat.chat_id} chat={chat} />)}
         </ul>
       </section>
 

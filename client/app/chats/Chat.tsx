@@ -28,10 +28,7 @@ const Chat = ({
   };
 
   return (
-    <li
-      key={chat.chat_id}
-      className="flex flex-row justify-between w-full border border-black rounded-md p-4"
-    >
+    <li className="flex flex-row justify-between w-full border border-black rounded-md p-4">
       <Link href={`/chat/${chat.chat_id}`} className="line-clamp-1 w-10/12">
         {chat.chat_name}
       </Link>
