@@ -1,10 +1,14 @@
-import { Button } from '@/components/ui/button';
-import { createServerSupabaseClient } from '@/lib/supabaseServerClient';
+import {
+  createServerSupabaseClient,
+  getUser,
+} from '@/lib/supabaseServerClient';
 import { Settings } from 'lucide-react';
 import Link from 'next/link';
+import NewChatButton from './NewChatButton';
 
 export default async function ChatsPage() {
   const supabase = createServerSupabaseClient();
+  const user = await getUser();
 
   const { data: chats, error } = await supabase
     .from('chats')
@@ -34,11 +38,7 @@ export default async function ChatsPage() {
         </ul>
       </section>
 
-      <section className="mt-auto flex flex-col w-full gap-4 px-8">
-        <Link href="/chats/new">
-          <Button className="w-full bg-blue-500">New Chat</Button>
-        </Link>
-      </section>
+      <NewChatButton userId={user!.id} />
     </div>
   );
 }
