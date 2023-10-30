@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { createServerSupabaseClient } from '@/lib/supabaseServerClient';
+import { Settings } from 'lucide-react';
 import Link from 'next/link';
 
 export default async function ChatsPage() {
@@ -19,11 +20,15 @@ export default async function ChatsPage() {
           {chats?.map((chat) => (
             <li
               key={chat.chat_id}
-              className="w-full border border-black rounded-md p-4"
+              className="flex flex-row justify-between w-full border border-black rounded-md p-4"
             >
-              <Link href={`/chat/${chat.chat_id}`} className="block">
+              <Link
+                href={`/chat/${chat.chat_id}`}
+                className="line-clamp-1 w-10/12"
+              >
                 {chat.chat_name}
               </Link>
+              <Settings />
             </li>
           ))}
         </ul>
