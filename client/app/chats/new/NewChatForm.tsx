@@ -8,6 +8,9 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import Link from 'next/link';
+import { useState } from 'react';
+import { Loader2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 const schema = yup
   .object()
@@ -16,7 +19,7 @@ const schema = yup
   })
   .required();
 
-const NewChatForm = () => {
+const NewChatForm = ({ userId }: { userId: string }) => {
   const supabase = createClientComponentClient();
   const {
     register,
@@ -25,20 +28,34 @@ const NewChatForm = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const handleCreateChatRoom = async (formData: { chatName: string }) => {
+    setIsLoading(true);
+
     try {
-      const { error } = await supabase.from('chats').insert([
-        {
-          chat_name: formData.chatName,
-        },
-      ]);
+      const { data, error } = await supabase
+        .from('chats')
+        .insert([
+          {
+            chat_name: formData.chatName,
+            created_by: userId,
+          },
+        ])
+        .select()
+        .single();
 
       if (error) {
         throw error;
       }
+
+      // navigate to the new chat room
+      router.push(`/chat/${data.chat_id}`);
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -63,7 +80,7 @@ const NewChatForm = () => {
       </section>
 
       <Button className="w-full bg-blue-500" type="submit">
-        Create Chat
+        {isLoading ? <Loader2 className="animate-spin" /> : 'Create chat'}
       </Button>
 
       <Link href="/chats" className="w-full">
