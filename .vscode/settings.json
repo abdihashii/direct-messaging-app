@@ -2,7 +2,7 @@
   "workbench.iconTheme": "material-icon-theme",
   "workbench.colorTheme": "Dracula Soft",
   "editor.fontFamily": "Source Code Pro, 'monospace', monospace",
-  "editor.fontSize": 12,
+  "editor.fontSize": 14,
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "prettier.semi": true,
