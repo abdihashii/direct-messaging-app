@@ -70,18 +70,23 @@ const Message = ({
         >
           {message.sender_user_name}
         </p>
-        <Popover>
-          <PopoverTrigger asChild>
-            <MoreVertical className="ml-auto" />
-          </PopoverTrigger>
-          <PopoverContent className="w-fit">
-            <ul className="flex flex-col gap-4">
-              <li className="flex flex-row gap-2" onClick={() => setOpen(true)}>
-                Delete <Trash2 />
-              </li>
-            </ul>
-          </PopoverContent>
-        </Popover>
+        {iAmTheSender && (
+          <Popover>
+            <PopoverTrigger asChild>
+              <MoreVertical className="ml-auto" />
+            </PopoverTrigger>
+            <PopoverContent className="w-fit">
+              <ul className="flex flex-col gap-4">
+                <li
+                  className="flex flex-row gap-2"
+                  onClick={() => setOpen(true)}
+                >
+                  Delete <Trash2 />
+                </li>
+              </ul>
+            </PopoverContent>
+          </Popover>
+        )}
       </div>
       <p>{message.content}</p>
       <p className="text-xs text-gray-500">
