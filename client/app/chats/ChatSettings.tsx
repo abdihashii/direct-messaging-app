@@ -36,6 +36,7 @@ const ChatSettings = ({
   const [editChatName, setEditChatName] = useState(false);
   const [isChatNameLoading, setIsChatNameLoading] = useState(false);
   const [isUserProfilesLoading, setIsUserProfilesLoading] = useState(false);
+  const [isAddUsersToChatLoading, setIsAddUsersToChatLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
   const [chatName, setChatName] = useState(chat.chat_name as string);
@@ -118,6 +119,30 @@ const ChatSettings = ({
         ...selectedUserProfiles,
         ...updatedSelectedUserProfiles,
       ]);
+    }
+  };
+
+  const handleAddUsersToChat = async () => {
+    setIsAddUsersToChatLoading(true);
+
+    try {
+      const { error } = await supabase.from('chat_users').insert(
+        selectedUserProfiles.map((profile) => ({
+          chat_id: chat.chat_id,
+          user_id: profile.user_id,
+        })),
+      );
+
+      if (error) throw error;
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsAddUsersToChatLoading(false);
+
+      toast({
+        description: 'User(s) have been successfully added to your chat! 🎉',
+        duration: 1500,
+      });
     }
   };
 
@@ -229,8 +254,13 @@ const ChatSettings = ({
           variant={'outline'}
           className="w-full bg-green-700 text-white"
           disabled={userNameValues.length === 0}
+          onClick={handleAddUsersToChat}
         >
-          Add user{userNameValues.length > 1 && 's'} to chat
+          {!isAddUsersToChatLoading ? (
+            `Add user${userNameValues.length > 1 ? 's' : ''} to chat`
+          ) : (
+            <Loader2 className="animate-spin" />
+          )}
         </Button>
       </section>
 
