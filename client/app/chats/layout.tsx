@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 import { ChevronLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { getUserName } from '@/lib/utils';
 
 export default async function ChatsLayout({
   children,
@@ -17,6 +18,8 @@ export default async function ChatsLayout({
     redirect('/auth/sign-in');
   }
 
+  const userName = getUserName(user.id);
+
   return (
     <div
       className="grid h-screen max-h-screen w-screen"
@@ -28,6 +31,8 @@ export default async function ChatsLayout({
         <h1 className="text-2xl">Chats</h1>
 
         {/* <p className="ml-auto">Settings</p> */}
+
+        <p>{userName}</p>
 
         {user && <SignOut />}
       </header>
