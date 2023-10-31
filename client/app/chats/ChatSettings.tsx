@@ -4,13 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import {
-  Ban,
-  // Check,
-  Loader2,
-  Pencil,
-  Save,
-} from 'lucide-react';
+import { Ban, Check, Loader2, Pencil, Save } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useToast } from '@/components/ui/use-toast';
 import {
@@ -20,7 +14,7 @@ import {
   CommandInput,
   CommandItem,
 } from '@/components/ui/command';
-// import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 import {
   Popover,
   PopoverContent,
@@ -41,11 +35,13 @@ const ChatSettings = ({
 }) => {
   const [editChatName, setEditChatName] = useState(false);
   const [isChatNameLoading, setIsChatNameLoading] = useState(false);
-  const [chatName, setChatName] = useState(chat.chat_name as string);
+  const [isUserProfilesLoading, setIsUserProfilesLoading] = useState(false);
   const [open, setOpen] = useState(false);
+
+  const [chatName, setChatName] = useState(chat.chat_name as string);
   const [userValues, setUserValues] = useState<string[]>([]);
   const [userProfiles, setUserProfiles] = useState<Profile[]>([]);
-  const [isUserProfilesLoading, setIsUserProfilesLoading] = useState(false);
+
   const { toast } = useToast();
   const supabase = createClientComponentClient<Database>();
 
@@ -96,12 +92,9 @@ const ChatSettings = ({
   };
 
   const handleOnUserNameSelect = (currentValue: string) => {
-    // check if user_name is already in userValues
+    // check if user_name is already in userValues, unselect if it is
     if (userValues.includes(currentValue)) {
-      toast({
-        description: 'User already added.',
-        duration: 1500,
-      });
+      setUserValues(userValues.filter((user) => user !== currentValue));
     } else {
       setUserValues([...userValues, currentValue]);
     }
@@ -186,14 +179,14 @@ const ChatSettings = ({
                       handleOnUserNameSelect(currentValue);
                     }}
                   >
-                    {/* <Check
+                    <Check
                       className={cn(
                         'mr-2 h-4 w-4',
-                        userValue === profile.user_name
+                        userValues.includes(profile.user_name as string)
                           ? 'opacity-100'
                           : 'opacity-0',
                       )}
-                    /> */}
+                    />
                     {profile.user_name}
                   </CommandItem>
                 ))}
@@ -201,6 +194,14 @@ const ChatSettings = ({
             </Command>
           </PopoverContent>
         </Popover>
+
+        <Button
+          variant={'outline'}
+          className="w-full bg-green-700 text-white"
+          disabled={userValues.length === 0}
+        >
+          Add user{userValues.length > 1 && 's'} to chat
+        </Button>
       </section>
 
       <section className="w-full overflow-x-scroll overflow-y-scroll">
