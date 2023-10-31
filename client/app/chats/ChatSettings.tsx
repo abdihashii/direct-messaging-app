@@ -98,8 +98,6 @@ const ChatSettings = ({
     } else {
       setUserValues([...userValues, currentValue]);
     }
-
-    setOpen(false);
   };
 
   useEffect(() => {
@@ -202,10 +200,6 @@ const ChatSettings = ({
         >
           Add user{userValues.length > 1 && 's'} to chat
         </Button>
-      </section>
-
-      <section className="w-full overflow-x-scroll overflow-y-scroll">
-        <pre>{JSON.stringify(userValues, null, 2)}</pre>
       </section>
     </>
   );
