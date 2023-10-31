@@ -7,3 +7,13 @@ export type Message = {
   sender_user_name: string | null;
   timestamp: string;
 };
+
+export type Profile = {
+  avatar_url: string | null;
+  created_at: string;
+  email: string;
+  updated_at: string | null;
+  user_color: string | null;
+  user_id: string;
+  user_name: string | null;
+};
