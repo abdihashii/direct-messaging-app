@@ -54,9 +54,9 @@ const ChatSettings = ({
 
   return (
     <>
-      <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
+      <form className="flex w-full flex-col gap-2" onSubmit={handleSubmit}>
         <Label htmlFor="chat-name">Chat Name</Label>
-        <section className="flex flex-row gap-2 items-center">
+        <section className="flex flex-row items-center gap-2">
           <Input
             id="chat-name"
             disabled={!editChatName}
@@ -76,7 +76,7 @@ const ChatSettings = ({
           <section className="flex flex-row gap-4">
             <Button
               variant={'outline'}
-              className="w-1/2 bg-green-800 text-white"
+              className="w-1/2 bg-green-700 text-white"
               type="submit"
               disabled={isChatNameLoading}
             >
@@ -86,7 +86,10 @@ const ChatSettings = ({
                 <Save type="submit" />
               )}
             </Button>
-            <Button variant={'outline'} className="w-1/2 bg-red-800 text-white">
+            <Button
+              variant={'outline'}
+              className="w-1/2 bg-orange-700 text-white"
+            >
               <Ban
                 type="button"
                 onClick={() => setEditChatName(!editChatName)}
