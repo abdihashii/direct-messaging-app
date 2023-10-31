@@ -39,8 +39,11 @@ const ChatSettings = ({
   const [open, setOpen] = useState(false);
 
   const [chatName, setChatName] = useState(chat.chat_name as string);
-  const [userValues, setUserValues] = useState<string[]>([]);
+  const [userNameValues, setUserNameValues] = useState<string[]>([]);
   const [userProfiles, setUserProfiles] = useState<Profile[]>([]);
+  const [selectedUserProfiles, setSelectedUserProfiles] = useState<Profile[]>(
+    [],
+  );
 
   const { toast } = useToast();
   const supabase = createClientComponentClient<Database>();
@@ -49,7 +52,7 @@ const ChatSettings = ({
     setChatName(e.target.value);
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleChatNameSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsChatNameLoading(true);
 
@@ -93,10 +96,28 @@ const ChatSettings = ({
 
   const handleOnUserNameSelect = (currentValue: string) => {
     // check if user_name is already in userValues, unselect if it is
-    if (userValues.includes(currentValue)) {
-      setUserValues(userValues.filter((user) => user !== currentValue));
+    if (userNameValues.includes(currentValue)) {
+      // remove the user_name from user name values state
+      setUserNameValues(userNameValues.filter((user) => user !== currentValue));
+
+      // then remove the user profile from selected user profiles state
+      setSelectedUserProfiles(
+        selectedUserProfiles.filter(
+          (profile) => profile.user_name !== currentValue,
+        ),
+      );
     } else {
-      setUserValues([...userValues, currentValue]);
+      // add the user name to user name values state
+      setUserNameValues([...userNameValues, currentValue]);
+
+      // then add the user profile to selected user profiles state
+      const updatedSelectedUserProfiles = userProfiles.filter(
+        (profile) => profile.user_name === currentValue,
+      );
+      setSelectedUserProfiles([
+        ...selectedUserProfiles,
+        ...updatedSelectedUserProfiles,
+      ]);
     }
   };
 
@@ -107,7 +128,10 @@ const ChatSettings = ({
 
   return (
     <>
-      <form className="flex w-full flex-col gap-2" onSubmit={handleSubmit}>
+      <form
+        className="flex w-full flex-col gap-2"
+        onSubmit={handleChatNameSubmit}
+      >
         <Label htmlFor="chat-name">Chat Name</Label>
         <section className="flex flex-row items-center gap-2">
           <Input
@@ -159,7 +183,7 @@ const ChatSettings = ({
             <Input
               type="text"
               placeholder="Find and add people to your chat..."
-              value={userValues as string[]}
+              value={userNameValues as string[]}
               readOnly={true}
             />
           </PopoverTrigger>
@@ -167,7 +191,15 @@ const ChatSettings = ({
           <PopoverContent className="w-72 p-0">
             <Command>
               <CommandInput placeholder="Search users..." />
-              <CommandEmpty>User not found.</CommandEmpty>
+              <CommandEmpty>
+                {!isUserProfilesLoading && userProfiles.length === 0 ? (
+                  <p className="text-gray-500">
+                    No users found. Try searching for a different name.
+                  </p>
+                ) : (
+                  <Loader2 className="animate-spin" />
+                )}
+              </CommandEmpty>
               <CommandGroup>
                 {userProfiles.map((profile) => (
                   <CommandItem
@@ -180,7 +212,7 @@ const ChatSettings = ({
                     <Check
                       className={cn(
                         'mr-2 h-4 w-4',
-                        userValues.includes(profile.user_name as string)
+                        userNameValues.includes(profile.user_name as string)
                           ? 'opacity-100'
                           : 'opacity-0',
                       )}
@@ -196,11 +228,19 @@ const ChatSettings = ({
         <Button
           variant={'outline'}
           className="w-full bg-green-700 text-white"
-          disabled={userValues.length === 0}
+          disabled={userNameValues.length === 0}
         >
-          Add user{userValues.length > 1 && 's'} to chat
+          Add user{userNameValues.length > 1 && 's'} to chat
         </Button>
       </section>
+
+      {/* <section className="w-full overflow-x-scroll overflow-y-scroll">
+        <pre>length: {selectedUserProfiles.length}</pre>
+
+        <pre>
+          <code>{JSON.stringify(selectedUserProfiles, null, 2)}</code>
+        </pre>
+      </section> */}
     </>
   );
 };
