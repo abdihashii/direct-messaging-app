@@ -25,9 +25,9 @@ const SignOut = () => {
   };
 
   return isLoading ? (
-    <Loader2 className="inline-block animate-spin" />
+    <Loader2 className="inline-block w-1/4 animate-spin" />
   ) : (
-    <LogOut onClick={handleSignOut} />
+    <LogOut className="w-1/4" onClick={handleSignOut} />
   );
 };
 
