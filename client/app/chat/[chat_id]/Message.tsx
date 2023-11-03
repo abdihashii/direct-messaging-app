@@ -66,9 +66,9 @@ const Message = ({
       }`}
       key={message.message_id}
     >
-      <div className="flex flex-row items-center w-full">
+      <div className="flex w-full flex-row items-center">
         <p
-          className={`${bgColor} rounded-md px-2 py-1 text-sm text-white w-fit`}
+          className={`${bgColor} w-fit rounded-md px-2 py-1 text-sm text-white`}
         >
           {message.sender_user_name}
         </p>
@@ -106,7 +106,7 @@ const Message = ({
               message and remove it from our servers.
             </p>
 
-            <div className="flex flex-row gap-2 justify-end w-full">
+            <div className="flex w-full flex-row justify-end gap-2">
               <Button
                 variant={'outline'}
                 onClick={() => setOpen(false)}

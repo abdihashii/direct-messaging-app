@@ -24,19 +24,10 @@ const SignOut = () => {
     }
   };
 
-  return (
-    <Button
-      size="icon"
-      variant={'link'}
-      disabled={isLoading}
-      onClick={handleSignOut}
-    >
-      {isLoading ? (
-        <Loader2 className="animate-spin inline-block" />
-      ) : (
-        <LogOut />
-      )}
-    </Button>
+  return isLoading ? (
+    <Loader2 className="inline-block animate-spin" />
+  ) : (
+    <LogOut onClick={handleSignOut} />
   );
 };
 

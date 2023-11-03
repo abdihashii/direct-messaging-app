@@ -5,7 +5,7 @@ import {
 import SignOut from '../../auth/SignOut';
 import { redirect } from 'next/navigation';
 import { ChevronLeft } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+
 import Link from 'next/link';
 
 export default async function ChatLayout({
@@ -51,14 +51,12 @@ export default async function ChatLayout({
         gridTemplateRows: 'auto 1fr',
       }}
     >
-      <header className="flex h-24 flex-row items-center justify-between gap-2 border-b-2 border-b-gray-500 p-8">
+      <header className="flex h-24 flex-row items-center justify-between gap-8 border-b-2 border-b-gray-500 bg-black px-6 py-8 text-white">
         <Link href="/chats">
-          <Button size={'icon'}>
-            <ChevronLeft />
-          </Button>
+          <ChevronLeft />
         </Link>
 
-        <h1 className="text-center text-lg leading-6 line-clamp-2">
+        <h1 className="line-clamp-2 text-center text-lg leading-6">
           {chatName}
         </h1>
 
