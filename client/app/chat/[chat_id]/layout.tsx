@@ -56,7 +56,7 @@ export default async function ChatLayout({
           <ChevronLeft />
         </Link>
 
-        <h1 className="line-clamp-2 w-fit rounded-md border-2 border-gray-500 px-2 py-1 text-center text-lg leading-6">
+        <h1 className="line-clamp-2 w-fit rounded-md text-center text-lg font-semibold leading-6">
           {chatName}
         </h1>
 
