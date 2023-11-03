@@ -52,11 +52,11 @@ export default async function ChatLayout({
       }}
     >
       <header className="flex h-24 flex-row items-center justify-between gap-8 border-b-2 border-b-gray-500 bg-black px-6 py-8 text-white">
-        <Link href="/chats">
+        <Link href="/chats" className="w-1/4">
           <ChevronLeft />
         </Link>
 
-        <h1 className="line-clamp-2 text-center text-lg leading-6">
+        <h1 className="line-clamp-2 w-fit rounded-md border-2 border-gray-500 px-2 py-1 text-center text-lg leading-6">
           {chatName}
         </h1>
 
