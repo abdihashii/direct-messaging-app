@@ -5,16 +5,13 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useState } from 'react';
 import { Loader2, SendHorizonal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Message } from '@/types';
 
 const ChatActions = ({
   chatId,
   senderId,
-}: // setMessagesState,
-{
+}: {
   chatId: string;
   senderId: string;
-  // setMessagesState: React.Dispatch<React.SetStateAction<Partial<Message>[]>>;
 }) => {
   const supabase = createClientComponentClient();
   const [content, setContent] = useState('');
@@ -25,17 +22,8 @@ const ChatActions = ({
 
     setIsLoading(true);
 
-    // setMessagesState((prev) => [
-    //   ...prev,
-    //   {
-    //     chat_id: chatId,
-    //     sender_id: senderId,
-    //     content,
-    //   },
-    // ]);
-
     try {
-      const { data: messages, error } = await supabase
+      const { error } = await supabase
         .from('messages')
         .insert([
           {
@@ -47,8 +35,6 @@ const ChatActions = ({
         .select();
 
       if (error) throw new Error(error.message);
-
-      // alert(JSON.stringify(messages, null, 2));
     } catch (error: any) {
       alert(error.message);
     } finally {
@@ -58,7 +44,7 @@ const ChatActions = ({
   };
 
   return (
-    <div className="mt-auto w-full border-t-2 border-t-gray-500 px-5 py-6">
+    <div className="mt-auto w-full bg-gray-200 px-5 py-6">
       <form
         className="flex h-fit w-full flex-row gap-2"
         onSubmit={handleSubmit}
