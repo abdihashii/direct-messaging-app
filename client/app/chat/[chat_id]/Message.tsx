@@ -68,7 +68,7 @@ const Message = ({
     >
       <div className="flex w-full flex-row items-center">
         <p
-          className={`${bgColor} w-fit rounded-md px-2 py-1 text-sm text-white`}
+          className={`${bgColor} w-fit rounded-md px-2 py-1 text-sm text-black`}
         >
           {message.sender_user_name}
         </p>
