@@ -17,3 +17,5 @@ export type Profile = {
   user_id: string;
   user_name: string | null;
 };
+
+export type UserColorsMap = Record<string, string>;

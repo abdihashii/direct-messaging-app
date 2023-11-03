@@ -19,12 +19,14 @@ import { toast } from '@/components/ui/use-toast';
 const Message = ({
   message,
   userId,
+  userColor,
 }: {
   message: MessageType;
   userId: string;
+  userColor: string;
 }) => {
   const iAmTheSender = userId === message.sender_id;
-  const bgColor = iAmTheSender ? 'bg-green-700' : 'bg-blue-700';
+  const bgColor = `bg-${userColor}-500`;
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const supabase = createClientComponentClient<Database>();
@@ -66,7 +68,7 @@ const Message = ({
     >
       <div className="flex flex-row items-center w-full">
         <p
-          className={`${bgColor} rounded-md px-2 py-1 text-sm text-white wi-fit`}
+          className={`${bgColor} rounded-md px-2 py-1 text-sm text-white w-fit`}
         >
           {message.sender_user_name}
         </p>

@@ -29,12 +29,14 @@ export interface Database {
           {
             foreignKeyName: "chat_users_chat_id_fkey"
             columns: ["chat_id"]
+            isOneToOne: false
             referencedRelation: "chats"
             referencedColumns: ["chat_id"]
           },
           {
             foreignKeyName: "chat_users_user_id_fkey"
             columns: ["user_id"]
+            isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
           }
@@ -45,18 +47,21 @@ export interface Database {
           chat_id: string
           chat_name: string | null
           created_at: string
+          created_by: string | null
           last_message_at: string | null
         }
         Insert: {
           chat_id?: string
           chat_name?: string | null
           created_at?: string
+          created_by?: string | null
           last_message_at?: string | null
         }
         Update: {
           chat_id?: string
           chat_name?: string | null
           created_at?: string
+          created_by?: string | null
           last_message_at?: string | null
         }
         Relationships: []
@@ -111,18 +116,21 @@ export interface Database {
           {
             foreignKeyName: "messages_chat_id_fkey"
             columns: ["chat_id"]
+            isOneToOne: false
             referencedRelation: "chats"
             referencedColumns: ["chat_id"]
           },
           {
             foreignKeyName: "messages_sender_id_fkey"
             columns: ["sender_id"]
+            isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "messages_sender_user_name_fkey"
             columns: ["sender_user_name"]
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["user_name"]
           }
@@ -134,38 +142,33 @@ export interface Database {
           created_at: string
           email: string
           updated_at: string | null
-          user_color: string | null
+          user_color: string
           user_id: string
-          user_name: string | null
+          user_name: string
         }
         Insert: {
           avatar_url?: string | null
           created_at?: string
           email: string
           updated_at?: string | null
-          user_color?: string | null
+          user_color: string
           user_id: string
-          user_name?: string | null
+          user_name: string
         }
         Update: {
           avatar_url?: string | null
           created_at?: string
           email?: string
           updated_at?: string | null
-          user_color?: string | null
+          user_color?: string
           user_id?: string
-          user_name?: string | null
+          user_name?: string
         }
         Relationships: [
           {
-            foreignKeyName: "profiles_user_color_fkey"
-            columns: ["user_color"]
-            referencedRelation: "colors"
-            referencedColumns: ["color"]
-          },
-          {
             foreignKeyName: "profiles_user_id_fkey"
             columns: ["user_id"]
+            isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
           }
