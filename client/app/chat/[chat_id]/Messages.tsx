@@ -81,7 +81,7 @@ const Messages = ({
       className="flex flex-col items-center gap-8 overflow-y-scroll p-5"
     >
       <ul className="flex w-full flex-col gap-4">
-        {messages?.map((m) => {
+        {messages.map((m) => {
           return (
             <Message
               key={m.message_id}
