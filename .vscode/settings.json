@@ -1,6 +1,6 @@
 {
   "workbench.iconTheme": "material-icon-theme",
-  "workbench.colorTheme": "Dracula Soft",
+  "workbench.colorTheme": "Dracula At Night",
   "editor.fontFamily": "Source Code Pro, 'monospace', monospace",
   "editor.fontSize": 14,
   "editor.formatOnSave": true,
@@ -29,5 +29,6 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "files.autoSave": "off"
+  "files.autoSave": "off",
+  "editor.formatOnSaveMode": "file"
 }
